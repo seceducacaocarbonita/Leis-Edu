@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consulta de Leis Educacionais</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+
+      <div class="topbar-left">
+  <img src="logo.png" alt="Secretaria Municipal de Educação" class="topbar-logo" />
+  <strong id="portalLabelTop">Secretaria Municipal de Educação</strong>
+</div>
+
+      <div class="topbar-right">
+        <button id="themeToggleBtn" class="btn btn-light btn-sm">Modo escuro</button>
+        <button id="openAdminBtn" class="btn btn-primary btn-sm">Painel administrativo</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="masthead"></section>
+
+  <section id="executiveBanner" class="executive-banner hidden">
+    <div class="container executive-banner-inner">
+      <span class="executive-banner-label">Comunicado</span>
+      <p id="executiveBannerText">Comunicado institucional</p>
+    </div>
+  </section>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Portal institucional</span>
+        <h1 id="portalTitleHero">Consulta de Leis Educacionais</h1>
+        <p id="portalSubtitleHero">
+         Plataforma institucional dedicada à consulta, organização, acompanhamento e análise de leis, decretos, portarias, resoluções, pareceres e demais documentos educacionais, promovendo transparência, acesso à informação e suporte à tomada de decisão.
+        </p>
+
+        <div class="hero-actions">
+          <button id="goDocsBtn" class="btn btn-primary">Ir para documentos</button>
+          <button id="goReportsBtn" class="btn btn-light">Ver indicadores</button>
+        </div>
+
+        <div class="hero-highlights">
+          <div class="highlight-card">
+            <strong>Consulta pública estruturada.</strong>
+            <span>Pesquisa avançada por título, número de protocolo, categoria, tipo documental, esfera administrativa e ano de publicação.</span>
+          </div>
+          <div class="highlight-card">
+            <strong>Gestão institucional.</strong>
+            <span>Módulo completo de cadastro, edição, auditoria e geração de relatórios com persistência segura dos dados.</span>
+          </div>
+          <div class="highlight-card">
+            <strong>Tomada de decisão.</strong>
+            <span>Utilize os dados e documentos disponíveis para fundamentar decisões administrativas.</span>
+          </div>
+          <div class="highlight-card">
+            <strong>Consulta por esfera.</strong>
+            <span>Selecione a esfera administrativa para visualizar documentos de âmbito federal, estadual ou municipal.</span>
+          </div>
+          <div class="highlight-card">
+            <strong>Saída formal.</strong>
+            <span>Produção de documentos institucionais (A4), relatórios executivos e registro histórico para acompanhamento contínuo.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="mainContent" class="container">
+    <section id="statsGrid" class="stats-grid"></section>
+
+    <section id="publicIndicatorsSection" class="panel section-space">
+      <div class="section-header">
+        <div>
+          <h2>Indicadores institucionais</h2>
+          <p>Panorama executivo do acervo público.</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="panel soft-panel">
+          <div class="section-header compact">
+            <div>
+              <h3>Distribuição por esfera</h3>
+              <p>Documentos publicados por abrangência administrativa.</p>
+            </div>
+          </div>
+          <div id="publicSphereBars" class="bars-grid"></div>
+        </div>
+
+        <div class="panel soft-panel">
+          <div class="section-header compact">
+            <div>
+              <h3>Distribuição por tipo</h3>
+              <p>Tipos documentais mais presentes no acervo.</p>
+            </div>
+          </div>
+          <div id="publicTypeBars" class="bars-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="featuredSection" class="panel section-space">
+      <div class="section-header">
+        <div>
+          <h2>Destaques</h2>
+          <p>Documentos institucionais priorizados para consulta.</p>
+        </div>
+      </div>
+      <div id="featuredGrid" class="featured-grid"></div>
+    </section>
+
+    <section id="favoritesSection" class="panel section-space hidden">
+      <div class="section-header">
+        <div>
+          <h2>Favoritos</h2>
+          <p>Documentos marcados para acesso rápido.</p>
+        </div>
+      </div>
+      <div id="favoritesGrid" class="featured-grid"></div>
+    </section>
+
+    <section id="recentSection" class="panel section-space hidden">
+      <div class="section-header">
+        <div>
+          <h2>Vistos recentemente</h2>
+          <p>Últimos documentos visualizados neste navegador.</p>
+        </div>
+      </div>
+      <div id="recentGrid" class="featured-grid"></div>
+    </section>
+
+    <section class="panel section-space">
+      <div class="section-header">
+        <div>
+          <h2>Categorias</h2>
+          <p>Visão geral das categorias disponíveis no acervo.</p>
+        </div>
+      </div>
+      <div id="categoryOverviewGrid" class="category-overview-grid"></div>
+    </section>
+
+    <section id="documentsSection" class="panel section-space">
+      <div class="section-header">
+        <div>
+          <h2>Buscar documentos</h2>
+          <p>Pesquise por título, protocolo, número, órgão emissor, categoria, resumo ou palavra-chave.</p>
+        </div>
+        <button id="resetFiltersBtn" class="btn btn-light">Limpar filtros</button>
+      </div>
+
+      <div class="filters-grid">
+        <div class="field field-span-2">
+          <label for="searchInput">Pesquisar</label>
+          <input id="searchInput" type="text" placeholder="Digite um termo para buscar" />
+        </div>
+
+        <div class="field">
+          <label for="typeFilter">Tipo</label>
+          <select id="typeFilter">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="categoryFilter">Categoria</label>
+          <select id="categoryFilter">
+            <option value="">Todas</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="sphereFilter">Esfera</label>
+          <select id="sphereFilter">
+            <option value="">Todas</option>
+            <option value="Federal">Federal</option>
+            <option value="Estadual">Estadual</option>
+            <option value="Municipal">Municipal</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="yearFilter">Ano</label>
+          <select id="yearFilter">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="sortFilter">Ordenar</label>
+          <select id="sortFilter">
+            <option value="recent">Mais recentes</option>
+            <option value="oldest">Mais antigos</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-bar">
+      <div>
+        <h2>Documentos</h2>
+        <p id="resultsInfo">0 documento(s) encontrado(s)</p>
+      </div>
+
+      <div class="page-size-box">
+        <label for="pageSizeSelect">Itens por página</label>
+        <select id="pageSizeSelect">
+          <option value="6">6</option>
+          <option value="9">9</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="documentsGrid" class="documents-grid"></section>
+
+    <section id="emptyState" class="empty-state hidden">
+      <div class="empty-card">
+        <h3>Nenhum documento encontrado</h3>
+        <p>Revise os filtros ou cadastre novos registros no painel administrativo.</p>
+      </div>
+    </section>
+
+    <section id="paginationWrap" class="pagination-wrap hidden">
+      <button id="prevPageBtn" class="btn btn-light">Anterior</button>
+      <div id="paginationInfo" class="pagination-info">Página 1 de 1</div>
+      <button id="nextPageBtn" class="btn btn-light">Próxima</button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <strong id="portalTitleFooter">Consulta de Leis Educacionais</strong>
+        <p id="footerOrgText">Sistema institucional local para organização e consulta de documentos educacionais.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal detalhes -->
+  <div id="detailsModal" class="modal hidden">
+    <div class="modal-backdrop" data-close="detailsModal"></div>
+    <div class="modal-dialog modal-xl">
+      <div class="modal-header">
+        <div>
+          <span class="eyebrow">Detalhes do documento</span>
+          <h3 id="detailsTitle">Documento</h3>
+        </div>
+        <button class="icon-btn" data-close="detailsModal">&times;</button>
+      </div>
+
+      <div class="modal-body details-layout">
+        <div class="details-main">
+          <div id="detailsHero" class="details-hero"></div>
+          <div id="detailsTags" class="meta-tags"></div>
+          <div id="detailsMeta" class="details-meta-grid"></div>
+
+          <div class="details-block">
+            <h4>Resumo</h4>
+            <p id="detailsSummary"></p>
+          </div>
+
+          <div class="details-block">
+            <h4>Descrição completa</h4>
+            <p id="detailsDescription"></p>
+          </div>
+
+          <div class="details-actions">
+            <a id="openPdfLink" class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer">Abrir PDF</a>
+            <button id="favoriteDetailBtn" class="btn btn-light">Favoritar</button>
+            <button id="printDocumentBtn" class="btn btn-light">Imprimir ficha A4</button>
+          </div>
+        </div>
+
+        <aside class="details-side">
+          <div class="preview-card">
+            <h4>Pré-visualização</h4>
+            <iframe id="pdfFrame" title="Pré-visualização do PDF"></iframe>
+            <div id="previewPlaceholder" class="preview-placeholder">
+              Nenhum PDF disponível para visualização.
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal admin -->
+  <div id="adminModal" class="modal hidden">
+    <div class="modal-backdrop" data-close="adminModal"></div>
+    <div class="modal-dialog modal-xxl">
+      <div class="modal-header">
+        <div>
+          <span class="eyebrow">Painel administrativo</span>
+          <h3>Gestão institucional final</h3>
+        </div>
+        <button class="icon-btn" data-close="adminModal">&times;</button>
+      </div>
+
+      <div class="modal-body admin-layout">
+        <aside class="admin-sidebar">
+          <div class="sidebar-brand">
+            <strong id="sidebarPortalName">Consulta de Leis Educacionais</strong>
+            <small id="sidebarOrgName">Secretaria de Educação</small>
+          </div>
+
+          <nav id="adminNav" class="admin-nav hidden">
+            <button class="nav-btn active" data-tab="dashboard">Dashboard</button>
+            <button class="nav-btn" data-tab="documents">Documentos</button>
+            <button class="nav-btn" data-tab="form">Cadastrar / Editar</button>
+            <button class="nav-btn" data-tab="categories">Categorias</button>
+            <button class="nav-btn" data-tab="reports">Relatórios</button>
+            <button class="nav-btn" data-tab="audit">Auditoria</button>
+            <button class="nav-btn" data-tab="backup">Backup</button>
+            <button class="nav-btn" data-tab="settings">Configurações</button>
+          </nav>
+
+          <div id="adminSidebarActions" class="sidebar-actions hidden">
+            <button id="resetDemoBtn" class="btn btn-light btn-full">Restaurar exemplo</button>
+            <button id="logoutBtn" class="btn btn-danger btn-full">Sair</button>
+          </div>
+        </aside>
+
+        <section class="admin-content">
+          <div id="adminLoginView">
+            <div class="login-card">
+              <h4>Acesso administrativo com Supabase</h4>
+              <p class="muted">
+                Este painel usa autenticação real do Supabase. Entre com um usuário cadastrado em Authentication > Users.
+              </p>
+
+              <div class="login-demo">
+                
+              </div>
+
+              <form id="adminLoginForm" class="form-grid">
+                <div class="field">
+                  <label for="adminUser">E-mail</label>
+                  <input id="adminUser" type="email" autocomplete="email" required />
+                </div>
+
+                <div class="field">
+                  <label for="adminPass">Senha</label>
+                  <input id="adminPass" type="password" autocomplete="current-password" required />
+                </div>
+
+                <div class="form-actions">
+                  <button class="btn btn-primary" type="submit">Entrar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div id="adminApp" class="hidden">
+            <section class="tab-panel" data-panel="dashboard">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Dashboard institucional</h2>
+                    <p>Resumo executivo do acervo, movimentações recentes e status operacional.</p>
+                  </div>
+                </div>
+                <div id="adminStatsGrid" class="stats-grid"></div>
+              </div>
+
+              <div class="dashboard-grid">
+                <div class="panel">
+                  <div class="section-header compact">
+                    <div>
+                      <h3>Distribuição por esfera</h3>
+                      <p>Quantitativo total por abrangência administrativa.</p>
+                    </div>
+                  </div>
+                  <div id="sphereBars" class="bars-grid"></div>
+                </div>
+
+                <div class="panel">
+                  <div class="section-header compact">
+                    <div>
+                      <h3>Atividade recente</h3>
+                      <p>Últimas movimentações registradas no sistema local.</p>
+                    </div>
+                  </div>
+                  <div id="activityList" class="activity-list"></div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Últimos documentos</h2>
+                    <p>Consulta rápida dos registros mais recentemente atualizados.</p>
+                  </div>
+                </div>
+
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Título</th>
+                        <th>Protocolo</th>
+                        <th>Tipo</th>
+                        <th>Categoria</th>
+                        <th>Esfera</th>
+                        <th>Ano</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="recentDocumentsBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="documents">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Documentos</h2>
+                    <p>Filtre, consulte e gerencie os registros existentes.</p>
+                  </div>
+                </div>
+
+                <div class="filters-grid admin-filters">
+                  <div class="field field-span-2">
+                    <label for="adminSearchInput">Buscar no painel</label>
+                    <input id="adminSearchInput" type="text" placeholder="Buscar por título, protocolo, número ou categoria" />
+                  </div>
+
+                  <div class="field">
+                    <label for="adminStatusFilter">Status</label>
+                    <select id="adminStatusFilter">
+                      <option value="">Todos</option>
+                      <option value="active">Ativos</option>
+                      <option value="inactive">Ocultos</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="adminSphereFilter">Esfera</label>
+                    <select id="adminSphereFilter">
+                      <option value="">Todas</option>
+                      <option value="Federal">Federal</option>
+                      <option value="Estadual">Estadual</option>
+                      <option value="Municipal">Municipal</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Título</th>
+                        <th>Protocolo</th>
+                        <th>Tipo</th>
+                        <th>Categoria</th>
+                        <th>Esfera</th>
+                        <th>Ano</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody id="adminDocumentsBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="form">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2 id="formTitle">Cadastrar documento</h2>
+                    <p>Cadastre ou atualize um documento do acervo.</p>
+                  </div>
+                  <button id="clearFormBtn" class="btn btn-light">Novo cadastro</button>
+                </div>
+
+                <form id="documentForm" class="form-grid form-grid-2">
+                  <input type="hidden" id="docId" />
+                  <input type="hidden" id="protocol" />
+                  <input type="hidden" id="coverImageData" />
+
+                  <div class="field">
+                    <label for="title">Título</label>
+                    <input id="title" type="text" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="lawOrDocumentNumber">Número da lei/documento</label>
+                    <input id="lawOrDocumentNumber" type="text" />
+                  </div>
+
+                  <div class="field">
+                    <label for="documentType">Tipo de documento</label>
+                    <select id="documentType" required>
+                      <option value="">Selecione</option>
+                      <option>Lei</option>
+                      <option>Norma</option>
+                      <option>Decreto</option>
+                      <option>Resolução</option>
+                      <option>Portaria</option>
+                      <option>Parecer</option>
+                      <option>Instrução Normativa</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="categoryId">Categoria</label>
+                    <select id="categoryId" required>
+                      <option value="">Selecione</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="administrativeSphere">Esfera administrativa</label>
+                    <select id="administrativeSphere" required>
+                      <option value="">Selecione</option>
+                      <option>Federal</option>
+                      <option>Estadual</option>
+                      <option>Municipal</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="year">Ano</label>
+                    <input id="year" type="number" min="1900" max="2100" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="issuingBody">Órgão emissor</label>
+                    <input id="issuingBody" type="text" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="publicationDate">Data de publicação</label>
+                    <input id="publicationDate" type="date" />
+                  </div>
+
+                  <div class="field">
+                    <label for="jurisdictionState">Estado</label>
+                    <input id="jurisdictionState" type="text" placeholder="Ex.: MG" />
+                  </div>
+
+                  <div class="field">
+                    <label for="jurisdictionCity">Município</label>
+                    <input id="jurisdictionCity" type="text" placeholder="Ex.: Carbonita" />
+                  </div>
+
+                  <div class="field">
+                    <label for="protocolView">Protocolo</label>
+                    <input id="protocolView" type="text" readonly placeholder="Gerado automaticamente" />
+                  </div>
+
+                  <div class="field">
+                    <label for="pdfUrl">URL do PDF</label>
+                    <input id="pdfUrl" type="url" placeholder="https://exemplo.com/documento.pdf" />
+                  </div>
+
+                  <div class="field field-span-2">
+                    <label for="summary">Resumo</label>
+                    <textarea id="summary" rows="3" required></textarea>
+                  </div>
+
+                  <div class="field field-span-2">
+                    <label for="fullDescription">Descrição completa</label>
+                    <textarea id="fullDescription" rows="5" required></textarea>
+                  </div>
+
+                  <div class="field field-span-2">
+                    <label for="keywords">Palavras-chave</label>
+                    <input id="keywords" type="text" placeholder="Separe por vírgula" />
+                  </div>
+
+                  <div class="field">
+                    <label for="coverImageFile">Capa do documento</label>
+                    <input id="coverImageFile" type="file" accept="image/*" />
+                  </div>
+
+                  <div class="field">
+                    <label>Prévia da capa</label>
+                    <div id="coverPreview" class="cover-preview">Sem imagem</div>
+                  </div>
+
+                  <div class="checks field-span-2">
+                    <label class="check">
+                      <input id="active" type="checkbox" checked />
+                      <span>Documento visível ao público</span>
+                    </label>
+
+                    <label class="check">
+                      <input id="featured" type="checkbox" />
+                      <span>Documento em destaque</span>
+                    </label>
+                  </div>
+
+                  <div class="form-actions field-span-2">
+                    <button class="btn btn-primary" type="submit">Salvar documento</button>
+                  </div>
+                </form>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="categories">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Categorias</h2>
+                    <p>Gerencie as categorias exibidas no portal.</p>
+                  </div>
+                </div>
+
+                <form id="categoryForm" class="form-grid">
+                  <input type="hidden" id="categoryEditId" />
+
+                  <div class="field">
+                    <label for="categoryName">Nome da categoria</label>
+                    <input id="categoryName" type="text" required />
+                  </div>
+
+                  <div class="checks">
+                    <label class="check">
+                      <input id="categoryActive" type="checkbox" checked />
+                      <span>Categoria ativa</span>
+                    </label>
+                  </div>
+
+                  <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Salvar categoria</button>
+                    <button id="clearCategoryFormBtn" class="btn btn-light" type="button">Limpar</button>
+                  </div>
+                </form>
+
+                <div class="table-wrap top-gap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Categoria</th>
+                        <th>Status</th>
+                        <th>Slug</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody id="categoriesBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="reports">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Centro de relatórios</h2>
+                    <p>Filtre, exporte e imprima relatórios executivos do acervo.</p>
+                  </div>
+                </div>
+
+                <div class="filters-grid admin-filters">
+                  <div class="field">
+                    <label for="reportSphereFilter">Esfera</label>
+                    <select id="reportSphereFilter">
+                      <option value="">Todas</option>
+                      <option value="Federal">Federal</option>
+                      <option value="Estadual">Estadual</option>
+                      <option value="Municipal">Municipal</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="reportCategoryFilter">Categoria</label>
+                    <select id="reportCategoryFilter">
+                      <option value="">Todas</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="reportYearFilter">Ano</label>
+                    <select id="reportYearFilter">
+                      <option value="">Todos</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="reportStatusFilter">Status</label>
+                    <select id="reportStatusFilter">
+                      <option value="">Todos</option>
+                      <option value="active">Ativos</option>
+                      <option value="inactive">Ocultos</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div id="reportSummaryGrid" class="stats-grid small-stats"></div>
+
+                <div class="report-actions">
+                  <button id="exportCsvBtn" class="btn btn-primary">Exportar CSV</button>
+                  <button id="printReportBtn" class="btn btn-light">Imprimir relatório A4</button>
+                </div>
+
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Protocolo</th>
+                        <th>Título</th>
+                        <th>Categoria</th>
+                        <th>Esfera</th>
+                        <th>Ano</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="reportTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="audit">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Auditoria local</h2>
+                    <p>Registro das ações administrativas realizadas neste navegador.</p>
+                  </div>
+                </div>
+
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Data/Hora</th>
+                        <th>Ação</th>
+                        <th>Tipo</th>
+                        <th>Alvo</th>
+                        <th>Detalhe</th>
+                      </tr>
+                    </thead>
+                    <tbody id="auditTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="backup">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Backup e restauração</h2>
+                    <p>Exporte ou importe os dados do portal em JSON.</p>
+                  </div>
+                </div>
+
+                <div class="backup-grid">
+                  <div class="backup-card">
+                    <h4>Exportar dados</h4>
+                    <p>Gera um arquivo JSON com documentos, categorias, configuração visual e auditoria.</p>
+                    <button id="exportJsonBtn" class="btn btn-primary">Exportar JSON</button>
+                  </div>
+
+                  <div class="backup-card">
+                    <h4>Importar dados</h4>
+                    <p>Importa um arquivo JSON salvo anteriormente.</p>
+                    <input id="importJsonInput" type="file" accept="application/json" />
+                  </div>
+
+                  <div class="backup-card">
+                    <h4>Restaurar base de exemplo</h4>
+                    <p>Substitui o conteúdo atual pelos dados iniciais de demonstração.</p>
+                    <button id="backupResetBtn" class="btn btn-danger">Restaurar exemplo</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="settings">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Configurações do portal</h2>
+                    <p>Ajuste o branding institucional e o banner oficial.</p>
+                  </div>
+                </div>
+
+                <form id="settingsForm" class="form-grid form-grid-2">
+                  <div class="field">
+                    <label for="portalTitleInput">Nome do portal</label>
+                    <input id="portalTitleInput" type="text" />
+                  </div>
+
+                  <div class="field">
+                    <label for="orgNameInput">Nome da instituição</label>
+                    <input id="orgNameInput" type="text" />
+                  </div>
+
+                  <div class="field field-span-2">
+                    <label for="portalSubtitleInput">Subtítulo institucional</label>
+                    <textarea id="portalSubtitleInput" rows="3"></textarea>
+                  </div>
+
+                  <div class="field field-span-2">
+                    <label for="footerTextInput">Texto do rodapé</label>
+                    <textarea id="footerTextInput" rows="3"></textarea>
+                  </div>
+
+                  <div class="checks field-span-2">
+                    <label class="check">
+                      <input id="bannerEnabledInput" type="checkbox" />
+                      <span>Exibir banner institucional</span>
+                    </label>
+                  </div>
+
+                  <div class="field field-span-2">
+                    <label for="bannerTextInput">Texto do banner</label>
+                    <textarea id="bannerTextInput" rows="3"></textarea>
+                  </div>
+
+                  <div class="field">
+                    <label for="bannerToneInput">Tom do banner</label>
+                    <select id="bannerToneInput">
+                      <option value="info">Informativo</option>
+                      <option value="success">Sucesso</option>
+                      <option value="warning">Atenção</option>
+                    </select>
+                  </div>
+
+                  <div class="form-actions field-span-2">
+                    <button class="btn btn-primary" type="submit">Salvar configurações</button>
+                  </div>
+                </form>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
