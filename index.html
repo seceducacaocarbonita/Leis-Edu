@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consulta de Leis Educacionais</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- FAVICON PROFISSIONAL -->
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+
+      <div class="topbar-left">
+  <img src="logo.png" alt="Secretaria Municipal de Educação" class="topbar-logo" />
+  <strong id="portalLabelTop">Secretaria Municipal de Educação</strong>
+</div>
+
+      <div class="topbar-right">
+        <button id="themeToggleBtn" class="btn btn-light btn-sm">Modo escuro</button>
+        <button id="openAdminBtn" class="btn btn-primary btn-sm">Painel administrativo</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="masthead"></section>
+
+  <section id="executiveBanner" class="executive-banner hidden">
+    <div class="container executive-banner-inner">
+      <span class="executive-banner-label">Comunicado</span>
+      <p id="executiveBannerText">Comunicado Institucional</p>
+    </div>
+  </section>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Portal Institucional</span>
+        <h1 id="portalTitleHero">Consulta de Leis Educacionais</h1>
+        <p id="portalSubtitleHero">
+         Plataforma institucional dedicada à consulta, organização, acompanhamento e análise de leis, decretos, portarias, resoluções, pareceres e demais documentos educacionais, promovendo transparência, acesso à informação e suporte à tomada de decisão.
+        </p>
+
+        <div class="hero-actions">
+          <button id="goDocsBtn" class="btn btn-primary">Ir para Documentos</button>
+          <button id="goReportsBtn" class="btn btn-light">Ver Indicadores</button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="mainContent" class="container">
+    <section id="statsGrid" class="stats-grid"></section>
+
+    <section id="publicIndicatorsSection" class="panel section-space">
+      <div class="section-header">
+        <div>
+          <h2>Indicadores Institucionais</h2>
+          <p>Panorama executivo do acervo público.</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="panel soft-panel">
+          <div class="section-header compact">
+            <div>
+              <h3>Distribuição por Esfera</h3>
+              <p>Documentos publicados por abrangência administrativa.</p>
+            </div>
+          </div>
+          <div id="publicSphereBars" class="bars-grid"></div>
+        </div>
+
+        <div class="panel soft-panel">
+          <div class="section-header compact">
+            <div>
+              <h3>Distribuição por Tipo</h3>
+              <p>Tipos documentais mais presentes no acervo.</p>
+            </div>
+          </div>
+          <div id="publicTypeBars" class="bars-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="featuredSection" class="panel section-space">
+      <div class="section-header">
+        <div>
+          <h2>Destaques</h2>
+          <p>Documentos institucionais priorizados para consulta.</p>
+        </div>
+      </div>
+      <div id="featuredGrid" class="featured-grid"></div>
+    </section>
+
+    <section id="favoritesSection" class="panel section-space hidden">
+      <div class="section-header">
+        <div>
+          <h2>Favoritos</h2>
+          <p>Documentos marcados para acesso rápido.</p>
+        </div>
+      </div>
+      <div id="favoritesGrid" class="featured-grid"></div>
+    </section>
+
+    <section id="recentSection" class="panel section-space hidden">
+      <div class="section-header">
+        <div>
+          <h2>Vistos recentemente</h2>
+          <p>Últimos documentos visualizados neste navegador.</p>
+        </div>
+      </div>
+      <div id="recentGrid" class="featured-grid"></div>
+    </section>
+
+    <section id="studentDistributionSection" class="panel section-space">
+      <div class="section-header">
+        <div>
+          <h2>Distribuição de alunos por escola</h2>
+          <p>Gráfico de rosca alimentado automaticamente pelos cadastros de alunos das escolas.</p>
+        </div>
+      </div>
+
+      <div class="student-donut-layout">
+        <div class="student-donut-visual-wrap">
+          <div id="publicStudentsDonutChart" class="student-donut-chart is-empty" aria-label="Gráfico de rosca da quantidade de alunos por escola">
+            <div class="student-donut-hole">
+              <span>Total</span>
+              <strong id="publicStudentsTotal">0</strong>
+              <small>alunos</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="student-donut-side">
+          <div class="student-donut-side-header">
+            <strong>Escolas</strong>
+            <span id="publicStudentsLegendSummary">Nenhum aluno cadastrado.</span>
+          </div>
+          <div id="publicStudentsLegend" class="student-donut-legend"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="staffDistributionSection" class="panel section-space">
+      <div class="section-header">
+        <div>
+          <h2>Distribuição de funcionários / professores por escola</h2>
+          <p>Gráfico de rosca alimentado automaticamente pelos cadastros da ficha de funcionário / professor.</p>
+        </div>
+      </div>
+
+      <div class="student-donut-layout">
+        <div class="student-donut-visual-wrap">
+          <div id="publicStaffDonutChart" class="student-donut-chart is-empty" aria-label="Gráfico de rosca da quantidade de funcionários e professores por escola">
+            <div class="student-donut-hole">
+              <span>Total</span>
+              <strong id="publicStaffTotal">0</strong>
+              <small>registros</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="student-donut-side">
+          <div class="student-donut-side-header">
+            <strong>Escolas</strong>
+            <span id="publicStaffLegendSummary">Nenhum cadastro de funcionário ou professor.</span>
+          </div>
+          <div id="publicStaffLegend" class="student-donut-legend"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="panel section-space">
+      <div class="section-header">
+        <div>
+          <h2>Categorias</h2>
+          <p>Visão geral das categorias disponíveis no acervo.</p>
+        </div>
+      </div>
+      <div id="categoryOverviewGrid" class="category-overview-grid"></div>
+    </section>
+
+    <section id="documentsSection" class="panel section-space">
+      <div class="section-header">
+        <div>
+          <h2>Buscar Documentos</h2>
+          <p>Pesquise por título, protocolo, número, órgão emissor, categoria, resumo ou palavra-chave.</p>
+        </div>
+        <button id="resetFiltersBtn" class="btn btn-light">Limpar filtros</button>
+      </div>
+
+      <div class="filters-grid">
+        <div class="field field-span-2">
+          <label for="searchInput">Pesquisar</label>
+          <input id="searchInput" type="text" placeholder="Digite um termo para buscar" />
+        </div>
+
+        <div class="field">
+          <label for="typeFilter">Tipo</label>
+          <select id="typeFilter">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="categoryFilter">Categoria</label>
+          <select id="categoryFilter">
+            <option value="">Todas</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="sphereFilter">Esfera</label>
+          <select id="sphereFilter">
+            <option value="">Todas</option>
+            <option value="Federal">Federal</option>
+            <option value="Estadual">Estadual</option>
+            <option value="Municipal">Municipal</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="yearFilter">Ano</label>
+          <select id="yearFilter">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="sortFilter">Ordenar</label>
+          <select id="sortFilter">
+            <option value="recent">Mais recentes</option>
+            <option value="oldest">Mais antigos</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-bar">
+      <div>
+        <h2>Documentos</h2>
+        <p id="resultsInfo">0 documento(s) encontrado(s)</p>
+      </div>
+
+      <div class="page-size-box">
+        <label for="pageSizeSelect">Itens por página</label>
+        <select id="pageSizeSelect">
+          <option value="6">6</option>
+          <option value="9">9</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="documentsGrid" class="documents-grid"></section>
+
+    <section id="emptyState" class="empty-state hidden">
+      <div class="empty-card">
+        <h3>Nenhum documento encontrado</h3>
+        <p>Revise os filtros ou cadastre novos registros no painel administrativo.</p>
+      </div>
+    </section>
+
+    <section id="paginationWrap" class="pagination-wrap hidden">
+      <button id="prevPageBtn" class="btn btn-light">Anterior</button>
+      <div id="paginationInfo" class="pagination-info">Página 1 de 1</div>
+      <button id="nextPageBtn" class="btn btn-light">Próxima</button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+  <img src="logo-prefeitura.png" alt="Prefeitura Municipal" class="footer-logo" />
+   <div class="footer-text">
+    <strong>Prefeitura Municipal de Carbonita</strong>
+    <span>Trabalhando por amor ao nosso povo.</span>
+  </div>
+</div>
+    </div>
+  </footer>
+
+  <!-- Modal detalhes -->
+  <div id="detailsModal" class="modal hidden">
+    <div class="modal-backdrop" data-close="detailsModal"></div>
+    <div class="modal-dialog modal-xl">
+      <div class="modal-header">
+        <div>
+          <span class="eyebrow">Detalhes do documento</span>
+          <h3 id="detailsTitle">Documento</h3>
+        </div>
+        <button class="icon-btn" data-close="detailsModal">&times;</button>
+      </div>
+
+      <div class="modal-body details-layout">
+        <div class="details-main">
+          <div id="detailsHero" class="details-hero"></div>
+          <div id="detailsTags" class="meta-tags"></div>
+          <div id="detailsMeta" class="details-meta-grid"></div>
+
+          <div class="details-block">
+            <h4>Resumo</h4>
+            <p id="detailsSummary"></p>
+          </div>
+
+          <div class="details-block">
+            <h4>Descrição Completa</h4>
+            <p id="detailsDescription"></p>
+          </div>
+
+          <div class="details-actions">
+            <a id="openPdfLink" class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer">Abrir PDF</a>
+            <button id="favoriteDetailBtn" class="btn btn-light">Favoritar</button>
+            <button id="printDocumentBtn" class="btn btn-light">Imprimir</button>
+          </div>
+        </div>
+
+        <aside class="details-side">
+          <div class="preview-card">
+            <h4>Pré-visualização</h4>
+            <iframe id="pdfFrame" title="Pré-visualização do PDF"></iframe>
+            <div id="previewPlaceholder" class="preview-placeholder">
+              Nenhum PDF disponível para visualização.
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal admin -->
+  <div id="adminModal" class="modal hidden">
+    <div class="modal-backdrop" data-close="adminModal"></div>
+    <div class="modal-dialog modal-xxl">
+      <div class="modal-header">
+        <div>
+          <span class="eyebrow">Painel administrativo</span>
+          <h3>Gestão institucional final</h3>
+        </div>
+        <button class="icon-btn" data-close="adminModal">&times;</button>
+      </div>
+
+      <div class="modal-body admin-layout">
+        <aside class="admin-sidebar">
+          <div class="sidebar-brand">
+            <strong id="sidebarPortalName">Consulta de Leis Educacionais</strong>
+            <small id="sidebarOrgName">Secretaria de Educação</small>
+          </div>
+
+          <nav id="adminNav" class="admin-nav hidden">
+            <button class="nav-btn active" data-tab="dashboard">Geral</button>
+            <button class="nav-btn" data-tab="institutional">Controle Institucional</button>
+            <button class="nav-btn" data-tab="staff-form">Funcionários / Professores</button>
+            <button class="nav-btn" data-tab="presence">Presença</button>
+            <button class="nav-btn" data-tab="student-form">Alunos</button>
+            <button class="nav-btn" data-tab="documents">Documentos</button>
+            <button class="nav-btn" data-tab="form">Leis</button>
+            <button class="nav-btn" data-tab="categories">Categorias</button>
+            <button class="nav-btn" data-tab="reports">Relatórios</button>
+            <button class="nav-btn" data-tab="audit">Auditoria</button>
+            <button class="nav-btn" data-tab="backup">Backup</button>
+          </nav>
+
+          <div id="adminSidebarActions" class="sidebar-actions hidden">
+            <button id="resetDemoBtn" class="btn btn-light btn-full">Limpar</button>
+            <button id="logoutBtn" class="btn btn-danger btn-full">Sair</button>
+          </div>
+        </aside>
+
+        <section class="admin-content">
+          <div id="adminLoginView">
+            <div class="login-card">
+              <h4>Acesso administrativo com Banco de Dados</h4>
+              <p class="muted">
+                Este painel usa autenticação real. Entre com um usuário cadastrado.
+              </p>
+
+              <div class="login-demo">
+                
+              </div>
+
+              <form id="adminLoginForm" class="form-grid">
+                <div class="field">
+                  <label for="adminUser">E-mail</label>
+                  <input id="adminUser" type="email" autocomplete="email" required />
+                </div>
+
+                <div class="field">
+                  <label for="adminPass">Senha</label>
+                  <input id="adminPass" type="password" autocomplete="current-password" required />
+                </div>
+
+                <div class="form-actions">
+                  <button class="btn btn-primary" type="submit">Entrar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div id="adminApp" class="hidden">
+            <section class="tab-panel" data-panel="dashboard">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Geral</h2>
+                    <p>Resumo executivo do acervo, movimentações recentes e status operacional.</p>
+                  </div>
+                </div>
+                <div id="adminStatsGrid" class="stats-grid"></div>
+              </div>
+
+              <div class="dashboard-grid">
+                <div class="panel">
+                  <div class="section-header compact">
+                    <div>
+                      <h3>Distribuição por Esfera</h3>
+                      <p>Quantitativo total por abrangência administrativa.</p>
+                    </div>
+                  </div>
+                  <div id="sphereBars" class="bars-grid"></div>
+                </div>
+
+                <div class="panel">
+                  <div class="section-header compact">
+                    <div>
+                      <h3>Atividades Recentes</h3>
+                      <p>Últimas movimentações registradas no Banco de Dados.</p>
+                    </div>
+                  </div>
+                  <div id="activityList" class="activity-list"></div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Últimos Documentos</h2>
+                    <p>Consulta rápida dos registros mais recentemente atualizados.</p>
+                  </div>
+                </div>
+
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Título</th>
+                        <th>Protocolo</th>
+                        <th>Tipo</th>
+                        <th>Categoria</th>
+                        <th>Esfera</th>
+                        <th>Ano</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="recentDocumentsBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="institutional">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Controle Institucional</h2>
+                    <p>Painel interno da Secretaria de Educação para cadastro, consulta e acompanhamento de alunos e funcionários.</p>
+                  </div>
+                </div>
+
+                <div id="institutionalStatsGrid" class="stats-grid small-stats"></div>
+
+                <div class="filters-grid admin-filters">
+                  <div class="field field-span-2">
+                    <label for="institutionSearchInput">Buscar Registro</label>
+                    <input id="institutionSearchInput" type="text" placeholder="Buscar por nome, CPF, telefone, e-mail, lotação, cargo ou função" />
+                  </div>
+
+                  <div class="field">
+                    <label for="institutionTypeFilter">Tipo</label>
+                    <select id="institutionTypeFilter">
+                      <option value="">Todos</option>
+                      <option value="Aluno">Alunos</option>
+                      <option value="Funcionário">Funcionários</option>
+                      <option value="Professor">Professores</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="institutionStatusFilter">Situação</label>
+                    <select id="institutionStatusFilter">
+                      <option value="">Todas</option>
+                      <option value="Ativo">Ativo</option>
+                      <option value="Afastado">Afastado</option>
+                      <option value="Desligado">Desligado</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Escola</th>
+                        <th>Cargo</th>
+                        <th>Situação</th>
+                        <th>CPF</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody id="institutionRecordsBody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="dashboard-grid" style="grid-template-columns: 1fr;">
+                <div class="panel">
+                  <div class="section-header">
+                    <div>
+                      <h3>Ficha Individual</h3>
+                      <p>Visualização detalhada do cadastro selecionado.</p>
+                    </div>
+                  </div>
+
+                  <div id="institutionDetailEmpty" class="empty-card">Selecione um registro para visualizar a ficha individual.</div>
+
+                  <div id="institutionDetailCard" class="detail-record hidden">
+                    <div class="person-detail-grid">
+                      <article class="person-detail-item">
+                        <span>Nome</span>
+                        <strong id="detailInstitutionName">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Tipo</span>
+                        <strong id="detailInstitutionType">-</strong>
+                      </article>
+                      <article class="person-detail-item field-span-2 person-detail-item-full">
+                        <span>Vínculo</span>
+                        <strong id="detailInstitutionRole">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Escola</span>
+                        <strong id="detailInstitutionDepartment">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Cargo</span>
+                        <strong id="detailInstitutionPosition">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Formação</span>
+                        <strong id="detailInstitutionFormation">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Ano de conclusão</span>
+                        <strong id="detailInstitutionConclusionDate">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Graduação</span>
+                        <strong id="detailInstitutionGraduation">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Especialização</span>
+                        <strong id="detailInstitutionSpecialization">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Situação</span>
+                        <strong id="detailInstitutionStatus">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>CPF</span>
+                        <strong id="detailInstitutionCpf">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Férias</span>
+                        <strong id="detailInstitutionVacation">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Licenças</span>
+                        <strong id="detailInstitutionLicense">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Afastamento</span>
+                        <strong id="detailInstitutionLeaveStatus">-</strong>
+                      </article>
+                      <article class="person-detail-item field-span-2 person-detail-item-full">
+                        <span>Documento de afastamento</span>
+                        <div id="detailInstitutionLeaveDocumentWrap" class="detail-file-slot">Nenhum documento anexado.</div>
+                      </article>
+                      <article class="person-detail-item field-span-2 person-detail-item-full">
+                        <span>Endereço</span>
+                        <strong id="detailInstitutionAddress">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>Telefone</span>
+                        <strong id="detailInstitutionPhone">-</strong>
+                      </article>
+                      <article class="person-detail-item">
+                        <span>E-mail</span>
+                        <strong id="detailInstitutionEmail">-</strong>
+                      </article>
+                    </div>
+
+                    <div class="form-actions top-gap">
+                      <button id="printInstitutionRecordBtn" class="btn btn-light" type="button">Imprimir ficha individual</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="staff-form">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Funcionários / Professores</h2>
+                    <p>Cadastro exclusivo de funcionários e professores, acessível diretamente pelo menu lateral abaixo de Controle Institucional.</p>
+                  </div>
+                </div>
+
+                    <section class="split-form-card">
+                      <div class="section-header compact">
+                        <div>
+                          <h4 id="staffInstitutionFormTitle">Cadastrar ficha de FuncionárioS / Professores</h4>
+                          <p>Use esta ficha para servidores, auxiliares, monitores, técnicos e professores.</p>
+                        </div>
+                      </div>
+
+                      <form id="staffInstitutionForm" class="form-grid form-grid-2">
+                        <input type="hidden" id="staffInstitutionRecordId" />
+
+                        <div class="field">
+                          <label for="staffInstitutionName">Nome</label>
+                          <input id="staffInstitutionName" type="text" required />
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionPersonType">Categoria</label>
+                          <select id="staffInstitutionPersonType" required>
+                            <option value="Funcionário">Funcionário</option>
+                            <option value="Professor">Professor</option>
+                          </select>
+                        </div>
+
+                        <div class="field field-span-2">
+                          <label for="staffInstitutionRole">Vínculo</label>
+                          <select id="staffInstitutionRole" required>
+                           <option value="">Selecione</option>
+                           <option value="Professor (A) Regente Efetivo (A) I">Professor (a) Regente Efetivo (a) I</option>
+                           <option value="Professor (a)Regente Efetivo (a) II">Professor (a)Regente Efetivo (a) II</option>
+                           <option value="Regente Contratado">Regente Contratado</option>
+                           <option value="Ajustado">Ajustado</option>
+                           <option value="Professor de Educação Especial">Professor de Educação Especial</option>
+                           <option value="Serviços Gerais">Serviços Gerais</option>
+                          </select>
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionDepartment">Escola</label>
+                          <select id="staffInstitutionDepartment" required>
+                           <option value="">Selecione</option>
+                           <option value="Escola Municipal Dona Cina">Escola Municipal Dona Cina</option>
+                           <option value="Escola Municipal Prefeito Jose Lemos">Escola Municipal Prefeito Jose Lemos</option>
+                           <option value="Escola Municipal Mestra Zefina">Escola Municipal Mestra Zefina</option>
+                           <option value="Escola Municipal de Abadia">Escola Municipal de Abadia</option>
+                           <option value="Escola Municipal Nucléo Estiva">Escola Municipal Nucléo Estiva</option>
+                           <option value="Escola Municipal Antonia Pereira Rocha">Escola Municipal Antonia Pereira Rocha</option>
+                           <option value="Escola Municipal Santo Antônio do Mercadinho">Escola Municipal Santo Antônio do Mercadinho</option>
+                          </select>
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionPosition">Cargo</label>
+                          <input id="staffInstitutionPosition" type="text" placeholder="Ex.: Professor PEB I, Secretária Escolar" required />
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionFormation">Formação</label>
+                          <input id="staffInstitutionFormation" type="text" placeholder="Ex.: Licenciatura, Bacharelado, Técnico" />
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionConclusionDate">Ano de conclusão</label>
+                          <input id="staffInstitutionConclusionDate" type="date" />
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionGraduation">Graduação</label>
+                          <input id="staffInstitutionGraduation" type="text" placeholder="Ex.: Pedagogia, Matemática, História" />
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionSpecialization">Especialização</label>
+                          <select id="staffInstitutionSpecialization">
+                            <option value="">Selecione</option>
+                            <option value="Não possui">Não possui</option>
+                            <option value="Lato Sensu">Lato Sensu</option>
+                            <option value="Stricto Sensu">Stricto Sensu</option>
+                          </select>
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionStatus">Situação</label>
+                          <select id="staffInstitutionStatus" required>
+                            <option value="">Selecione</option>
+                            <option value="Ativo">Ativo</option>
+                            <option value="Afastado">Afastado</option>
+                            <option value="Desligado">Desligado</option>
+                          </select>
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionCpf">CPF</label>
+                          <input id="staffInstitutionCpf" type="text" placeholder="000.000.000-00" required />
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionVacation">Férias</label>
+                          <select id="staffInstitutionVacation">
+                            <option value="">Selecione</option>
+                            <option value="Não">Não</option>
+                            <option value="Normais">Férias normais</option>
+                            <option value="Premium">Férias Premium</option>
+                          </select>
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionLicense">Licenças</label>
+                          <select id="staffInstitutionLicense">
+                            <option value="">Selecione</option>
+                            <option value="Nenhuma">Nenhuma</option>
+                            <option value="Ajustamento">Ajustamento</option>
+                            <option value="Maternidade">Maternidade</option>
+                            <option value="Paternidade">Paternidade</option>
+                            <option value="Médica">Médica</option>
+                            <option value="Óbito">Óbito</option>
+                          </select>
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionLeaveStatus">Afastamento</label>
+                          <select id="staffInstitutionLeaveStatus">
+                            <option value="">Selecione</option>
+                            <option value="Não">Não</option>
+                            <option value="Sim">Sim</option>
+                          </select>
+                        </div>
+
+                        <div class="field field-span-2">
+                          <label for="staffInstitutionLeaveFile">Documento de afastamento</label>
+                          <input id="staffInstitutionLeaveFile" type="file" accept=".png,.pdf,image/png,application/pdf" />
+                          <input id="staffInstitutionLeaveDocumentData" type="hidden" />
+                          <input id="staffInstitutionLeaveDocumentName" type="hidden" />
+                          <div id="staffInstitutionLeaveDocumentPreview" class="file-preview">Nenhum documento anexado.</div>
+                        </div>
+
+                        <div class="field field-span-2">
+                          <label for="staffInstitutionAddress">Endereço</label>
+                          <input id="staffInstitutionAddress" type="text" required />
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionPhone">Telefone</label>
+                          <input id="staffInstitutionPhone" type="text" placeholder="(00) 00000-0000" />
+                        </div>
+
+                        <div class="field">
+                          <label for="staffInstitutionEmail">E-mail</label>
+                          <input id="staffInstitutionEmail" type="email" placeholder="nome@exemplo.com" />
+                        </div>
+
+                        <div class="form-actions field-span-2">
+                          <button class="btn btn-primary" type="submit">Salvar</button>
+                          <button id="clearStaffInstitutionFormBtn" class="btn btn-light" type="button">Limpar</button>
+                        </div>
+                      </form>
+                    </section>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="student-form">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Alunos</h2>
+                    <p>Cadastro exclusivo de alunos, acessível diretamente pelo menu lateral abaixo de Controle Institucional.</p>
+                  </div>
+                </div>
+
+                <section class="split-form-card">
+                  <div class="section-header compact">
+                    <div>
+                      <h4 id="studentInstitutionFormTitle">Cadastrar ficha de aluno</h4>
+                      <p>Use esta ficha apenas para dados dos alunos.</p>
+                    </div>
+                  </div>
+
+                  <form id="studentInstitutionForm" class="form-grid form-grid-2">
+                    <input type="hidden" id="studentInstitutionRecordId" />
+
+                    <div class="field">
+                      <label for="studentInstitutionName">Nome</label>
+                      <input id="studentInstitutionName" type="text" required />
+                    </div>
+
+                    <div class="field">
+                      <label for="studentInstitutionStatus">Turma</label>
+                      <select id="studentInstitutionStatus" required>
+                        <option value="">Selecione</option>
+                        <option value="Berçario I (1 A 2 anos)">Berçario I (1 A 2 anos)</option>
+                        <option value="Berçario II (1 A 2 anos)">Berçario II (1 A 2 anos)</option>
+                        <option value="Maternal II Integral (2 a 3 anos)">Maternal II Integral (2 a 3 anos)</option>
+                        <option value="Maternal II Integral (2 a 3anos)">Maternal II Integral (2 a 3anos)</option>
+                        <option value="Maternal III Parcial (3 a 4 anos)">Maternal III Parcial (3 a 4 anos)</option>
+                      </select>
+                    </div>
+                    <div class="field">
+                      <label for="studentInstitutionDepartment">Escola</label>
+                      <select id="studentInstitutionDepartment" required>
+                     <option value="">Selecione</option>
+                     <option value="Escola Municipal Dona Cina">Escola Municipal Dona Cina</option>
+                     <option value="Escola Municipal Prefeito Jose Lemos">Escola Municipal Prefeito Jose Lemos</option>
+                     <option value="Escola Municipal Mestra Zefina">Escola Municipal Mestra Zefina</option>
+                     <option value="Escola Municipal de Abadia">Escola Municipal de Abadia</option>
+                     <option value="Escola Municipal Nucléo Estiva">Escola Municipal Nucléo Estiva</option>
+                     <option value="Escola Municipal Antonia Pereira Rocha">Escola Municipal Antonia Pereira Rocha</option>
+                     <option value="Escola Municipal Santo Antônio do Mercadinho">Escola Municipal Santo Antônio do Mercadinho</option>
+                    </select>
+                    </div>
+                    <div class="field">
+                      <label for="studentInstitutionPosition">Etapa / série</label>
+                      <input id="studentInstitutionPosition" type="text" placeholder="Ex.: Educação Infantil, 2º período" required />
+                    </div>
+                    <div class="field field-span-2">
+                      <label for="studentInstitutionAddress">Endereço</label>
+                      <input id="studentInstitutionAddress" type="text" required />
+                    </div>
+                    <div class="field">
+                      <label for="studentInstitutionPhone">Telefone</label>
+                      <input id="studentInstitutionPhone" type="text" placeholder="(00) 00000-0000" />
+                    </div>
+
+                    <input id="studentInstitutionRole" type="hidden" value="Aluno" />
+                    <input id="studentInstitutionCpf" type="hidden" value="" />
+                    <input id="studentInstitutionEmail" type="hidden" value="" />
+
+                    <div class="form-actions field-span-2">
+                      <button class="btn btn-primary" type="submit">Salvar</button>
+                      <button id="clearStudentInstitutionFormBtn" class="btn btn-light" type="button">Limpar</button>
+                    </div>
+                  </form>
+                </section>
+              </div>
+            </section>
+
+
+
+            <section class="tab-panel hidden" data-panel="presence">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Presença</h2>
+                    <p>Controle mensal de presença de funcionários e professores com lançamento por mês.</p>
+                  </div>
+                </div>
+
+                <div class="panel soft-panel section-space-sm presence-toolbar">
+                  <div class="field">
+                    <label for="presenceMonthPicker">Mês de referência</label>
+                    <input id="presenceMonthPicker" type="month" />
+                  </div>
+
+                  <div class="form-actions">
+                    <button id="fillPresenceWorkdaysBtn" class="btn btn-light" type="button">Aplicar 22 dias</button>
+                    <button id="savePresenceBtn" class="btn btn-primary" type="button">Salvar presença do mês</button>
+                  </div>
+                </div>
+
+                <div class="presence-inline-note">
+                  <span class="badge">Controle mensal</span>
+                  <p id="presenceMonthInfo">Selecione um mês para lançar a presença dos funcionários e professores.</p>
+                </div>
+
+                <div id="presenceSummaryGrid" class="stats-grid"></div>
+
+                <div class="panel section-space-sm">
+                  <div class="section-header compact">
+                    <div>
+                      <h3>Lançamento mensal</h3>
+                      <p>Registre dias previstos, presenças, faltas justificadas, faltas não justificadas e observações. O cabeçalho permanece visível durante a rolagem vertical.</p>
+                    </div>
+                  </div>
+
+                  <div class="table-wrap presence-monthly-wrap">
+                    <table class="table presence-table">
+                      <thead>
+                        <tr>
+                          <th>Nome</th>
+                          <th>Tipo</th>
+                          <th>Escola</th>
+                          <th>Cargo</th>
+                          <th>Dias previstos</th>
+                          <th>Presenças</th>
+                          <th>F. justificadas</th>
+                          <th>F. não justificadas</th>
+                          <th>Frequência</th>
+                          <th>Observações</th>
+                        </tr>
+                      </thead>
+                      <tbody id="presenceTableBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="documents">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Documentos</h2>
+                    <p>Filtre, consulte e gerencie os registros existentes.</p>
+                  </div>
+                </div>
+
+                <div class="filters-grid admin-filters">
+                  <div class="field field-span-2">
+                    <label for="adminSearchInput">Buscar no painel</label>
+                    <input id="adminSearchInput" type="text" placeholder="Buscar por título, protocolo, número ou categoria" />
+                  </div>
+
+                  <div class="field">
+                    <label for="adminStatusFilter">Status</label>
+                    <select id="adminStatusFilter">
+                      <option value="">Todos</option>
+                      <option value="active">Ativos</option>
+                      <option value="inactive">Ocultos</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="adminSphereFilter">Esfera</label>
+                    <select id="adminSphereFilter">
+                      <option value="">Todas</option>
+                      <option value="Federal">Federal</option>
+                      <option value="Estadual">Estadual</option>
+                      <option value="Municipal">Municipal</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Título</th>
+                        <th>Protocolo</th>
+                        <th>Tipo</th>
+                        <th>Categoria</th>
+                        <th>Esfera</th>
+                        <th>Ano</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody id="adminDocumentsBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="form">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2 id="formTitle">Cadastrar Documentos</h2>
+                    <p>Cadastre ou atualize um documento do acervo.</p>
+                  </div>
+                  <button id="clearFormBtn" class="btn btn-light">Novo cadastro</button>
+                </div>
+
+                <form id="documentForm" class="form-grid form-grid-2">
+                  <input type="hidden" id="docId" />
+                  <input type="hidden" id="protocol" />
+                  <input type="hidden" id="coverImageData" />
+
+                  <div class="field">
+                    <label for="title">Título</label>
+                    <input id="title" type="text" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="lawOrDocumentNumber">Número da lei/documento</label>
+                    <input id="lawOrDocumentNumber" type="text" />
+                  </div>
+
+                  <div class="field">
+                    <label for="documentType">Tipo de documento</label>
+                    <select id="documentType" required>
+                      <option value="">Selecione</option>
+                      <option>Lei</option>
+                      <option>Norma</option>
+                      <option>Decreto</option>
+                      <option>Resolução</option>
+                      <option>Portaria</option>
+                      <option>Parecer</option>
+                      <option>Instrução Normativa</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="categoryId">Categoria</label>
+                    <select id="categoryId" required>
+                      <option value="">Selecione</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="administrativeSphere">Esfera Administrativa</label>
+                    <select id="administrativeSphere" required>
+                      <option value="">Selecione</option>
+                      <option>Federal</option>
+                      <option>Estadual</option>
+                      <option>Municipal</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="year">Ano</label>
+                    <input id="year" type="number" min="1900" max="2100" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="issuingBody">Órgão Emissor</label>
+                    <input id="issuingBody" type="text" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="publicationDate">Data de Publicação</label>
+                    <input id="publicationDate" type="date" />
+                  </div>
+
+                  <div class="field">
+                    <label for="jurisdictionState">Estado</label>
+                    <input id="jurisdictionState" type="text" placeholder="Ex.: MG" />
+                  </div>
+
+                  <div class="field">
+                    <label for="jurisdictionCity">Município</label>
+                    <input id="jurisdictionCity" type="text" placeholder="Ex.: Carbonita" />
+                  </div>
+
+                  <div class="field">
+                    <label for="protocolView">Protocolo</label>
+                    <input id="protocolView" type="text" readonly placeholder="Gerado automaticamente" />
+                  </div>
+
+                  <div class="field">
+                    <label for="pdfUrl">URL do PDF</label>
+                    <input id="pdfUrl" type="url" placeholder="https://exemplo.com/documento.pdf" />
+                  </div>
+
+                  <div class="field field-span-2">
+                    <label for="summary">Resumo</label>
+                    <textarea id="summary" rows="3" required></textarea>
+                  </div>
+
+                  <div class="field field-span-2">
+                    <label for="fullDescription">Descrição completa</label>
+                    <textarea id="fullDescription" rows="5" required></textarea>
+                  </div>
+
+                  <div class="field field-span-2">
+                    <label for="keywords">Palavras-chave</label>
+                    <input id="keywords" type="text" placeholder="Separe por vírgula" />
+                  </div>
+
+                  <div class="field">
+                    <label for="coverImageFile">Capa do Documento</label>
+                    <input id="coverImageFile" type="file" accept="image/*" />
+                  </div>
+
+                  <div class="field">
+                    <label>Prévia da Capa</label>
+                    <div id="coverPreview" class="cover-preview">Sem Imagem</div>
+                  </div>
+
+                  <div class="checks field-span-2">
+                    <label class="check">
+                      <input id="active" type="checkbox" checked />
+                      <span>Documento visível ao público</span>
+                    </label>
+
+                    <label class="check">
+                      <input id="featured" type="checkbox" />
+                      <span>Documento em Destaque</span>
+                    </label>
+                  </div>
+
+                  <div class="form-actions field-span-2">
+                    <button class="btn btn-primary" type="submit">Salvar</button>
+                  </div>
+                </form>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="categories">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Categorias</h2>
+                    <p>Gerencie as categorias exibidas no portal.</p>
+                  </div>
+                </div>
+
+                <form id="categoryForm" class="form-grid">
+                  <input type="hidden" id="categoryEditId" />
+
+                  <div class="field">
+                    <label for="categoryName">Nome da Categoria</label>
+                    <input id="categoryName" type="text" required />
+                  </div>
+
+                  <div class="checks">
+                    <label class="check">
+                      <input id="categoryActive" type="checkbox" checked />
+                      <span>Categoria Ativa</span>
+                    </label>
+                  </div>
+
+                  <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Salvar</button>
+                    <button id="clearCategoryFormBtn" class="btn btn-light" type="button">Limpar</button>
+                  </div>
+                </form>
+
+                <div class="table-wrap top-gap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Categoria</th>
+                        <th>Status</th>
+                        <th>Slug</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody id="categoriesBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="reports">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Centro de Relatórios</h2>
+                    <p>Filtre, exporte e imprima relatórios executivos do acervo.</p>
+                  </div>
+                </div>
+
+                <div class="filters-grid admin-filters">
+                  <div class="field">
+                    <label for="reportSphereFilter">Esfera</label>
+                    <select id="reportSphereFilter">
+                      <option value="">Todas</option>
+                      <option value="Federal">Federal</option>
+                      <option value="Estadual">Estadual</option>
+                      <option value="Municipal">Municipal</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="reportCategoryFilter">Categoria</label>
+                    <select id="reportCategoryFilter">
+                      <option value="">Todas</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="reportYearFilter">Ano</label>
+                    <select id="reportYearFilter">
+                      <option value="">Todos</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="reportStatusFilter">Status</label>
+                    <select id="reportStatusFilter">
+                      <option value="">Todos</option>
+                      <option value="active">Ativos</option>
+                      <option value="inactive">Ocultos</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div id="reportSummaryGrid" class="stats-grid small-stats"></div>
+
+                <div class="report-actions">
+                  <button id="exportCsvBtn" class="btn btn-primary">Exportar</button>
+                  <button id="printReportBtn" class="btn btn-light">Imprimir</button>
+                </div>
+
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Protocolo</th>
+                        <th>Título</th>
+                        <th>Categoria</th>
+                        <th>Esfera</th>
+                        <th>Ano</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="reportTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="audit">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Auditorias</h2>
+                    <p>Registro das ações administrativas realizadas neste navegador.</p>
+                  </div>
+                </div>
+
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Data/Hora</th>
+                        <th>Ação</th>
+                        <th>Tipo</th>
+                        <th>Alvo</th>
+                        <th>Detalhe</th>
+                      </tr>
+                    </thead>
+                    <tbody id="auditTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="tab-panel hidden" data-panel="backup">
+              <div class="panel">
+                <div class="section-header">
+                  <div>
+                    <h2>Backup e Restauração</h2>
+                    <p>Exporte ou importe os dados do portal</p>
+                  </div>
+                </div>
+
+                <div class="backup-grid">
+                  <div class="backup-card">
+                    <h4>Exportar Dados</h4>
+                    <p>Gera um arquivo, documentos, categorias, controle institucional, configuração visual e auditoria.</p>
+                    <button id="exportJsonBtn" class="btn btn-primary">Exportar</button>
+                  </div>
+
+                  <div class="backup-card">
+                    <h4>Importar Dados</h4>
+                    <p>Importa um arquivo salvo anteriormente.</p>
+                    <input id="importJsonInput" type="file" accept="application/json" />
+                  </div>
+
+                  <div class="backup-card">
+                    <h4>Restaurar base de exemplo</h4>
+                    <p>Substitui o conteúdo atual pelos dados iniciais de demonstração.</p>
+                    <button id="backupResetBtn" class="btn btn-danger">Limpar</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
